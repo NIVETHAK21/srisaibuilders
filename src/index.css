@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1d3557;
+    background-color: #f8f9fa;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+  }
+}
+
+/* Professional Polish Custom Architecture Patterns */
+.bg-navy-dark {
+  background-color: #1d3557;
+}
+
+.text-navy-dark {
+  color: #1d3557;
+}
+
+.text-steel-blue {
+  color: #457b9d;
+}
+
+.bg-steel-blue {
+  background-color: #457b9d;
+}
+
+.text-psb-red {
+  color: #E63946;
+}
+
+.bg-psb-red {
+  background-color: #E63946;
+}
+
+.text-psb-gold {
+  color: #FFC107;
+}
+
+.bg-psb-gold {
+  background-color: #FFC107;
+}
+
+.bg-mint-soft {
+  background-color: #f1faee;
+}
+
+.border-mint-soft {
+  border-color: #a8dadc;
+}
+
+/* Dot grid overlay for blueprints & architectural hero */
+.pattern-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.pattern-dots-dark {
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1d3557;
+}
+::-webkit-scrollbar-thumb {
+  background: #FFC107;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E63946;
+}
+
+/* Animation utilities */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(230, 57, 70, 0.55);
+  }
+}
+
+.glow-action {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+
