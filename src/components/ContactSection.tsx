@@ -282,6 +282,31 @@ export const ContactSection: React.FC = () => {
                   </span>
                 </a>
 
+                {/* Normal Instagram Link under Phone numbers */}
+                <a
+                  href={COMPANY_DETAILS.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 hover:bg-pink-50 border border-slate-200 hover:border-pink-200 transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center">
+                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-500 font-medium">Official Instagram</div>
+                      <div className="font-bold text-[#1d3557] text-sm group-hover:text-pink-600">
+                        @_psb_builders_
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-xs font-bold text-pink-600 bg-pink-50 px-2.5 py-1 rounded">
+                    Follow
+                  </span>
+                </a>
+
                 <a
                   href={`mailto:${COMPANY_DETAILS.email}`}
                   className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors group"
@@ -323,15 +348,19 @@ export const ContactSection: React.FC = () => {
             </div>
 
             {/* WhatsApp Direct Action */}
-            <a
-              href="https://wa.me/919952030796?text=Hi%20Pranav%20Sai%20Builders,%20I%20would%20like%20to%20discuss%20a%20construction/interior%20project."
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center gap-2 p-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider shadow-md transition-colors cursor-pointer text-sm font-heading"
-            >
-              <MessageSquare className="w-5 h-5" />
-              <span>Chat with Er. Manikandan on WhatsApp</span>
-            </a>
+            <div className="space-y-3">
+              <a
+                href={`https://wa.me/919952030796?text=${encodeURIComponent('Hello Er. Manikandan (Pranav Sai Builders), I would like to discuss a construction/interior project in Chennai.')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-2.5 p-3.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold uppercase tracking-wider shadow-md transition-all transform hover:scale-[1.02] cursor-pointer text-xs sm:text-sm font-heading"
+              >
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.075-2.227-.564-1.96-1.173-3.23-3.158-3.328-3.289-.098-.13-.799-1.062-.799-2.026 0-.964.506-1.438.686-1.634.18-.196.393-.245.524-.245.13 0 .262.002.376.007.12.006.281-.046.439.334.164.394.556 1.358.604 1.458.049.1.082.217.016.347-.066.13-.099.211-.197.325-.098.115-.207.257-.296.344-.099.097-.202.203-.087.401.115.197.511.844 1.096 1.365.753.67 1.388.877 1.585.975.197.099.312.082.427-.05.115-.13.492-.573.623-.77.13-.197.262-.164.442-.098.18.065 1.146.541 1.343.639.197.098.328.147.377.229.049.082.049.475-.095.88z" />
+                </svg>
+                <span>Chat on WhatsApp (+91 9952030796)</span>
+              </a>
+            </div>
 
           </div>
         </div>

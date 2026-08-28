@@ -15,7 +15,7 @@ export const Hero: React.FC<HeroProps> = ({
   onExploreServices,
 }) => {
   return (
-    <section id="home" className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[#1d3557] text-white pattern-dots">
+    <section id="home" className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center pt-32 sm:pt-36 md:pt-36 lg:pt-28 pb-16 overflow-hidden bg-[#1d3557] text-white pattern-dots">
       {/* 3D Three.js Interactive Architectural Scene */}
       <ThreeHeroScene />
 
@@ -25,10 +25,10 @@ export const Hero: React.FC<HeroProps> = ({
 
       {/* Main Content Container */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-3xl space-y-6 pt-6">
+        <div className="max-w-3xl space-y-6 pt-4 sm:pt-6">
           
           {/* Engineering Accreditation & GST Pill */}
-          <div className="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs text-slate-200 backdrop-blur-md shadow-lg">
+          <div className="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs text-slate-200 backdrop-blur-md shadow-lg box-pop">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFC107] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FFC107]"></span>
@@ -77,7 +77,7 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="flex flex-wrap items-center gap-3.5 pt-2">
             <button
               onClick={onOpenQuoteModal}
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#E63946] hover:bg-[#d90429] text-white font-black text-xs sm:text-sm uppercase tracking-widest rounded shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer font-heading glow-action"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#E63946] hover:bg-[#d90429] text-white font-black text-xs sm:text-sm uppercase tracking-widest rounded-lg shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer font-heading glow-action"
             >
               <span>Get Free Itemized Quote</span>
               <ArrowRight className="w-5 h-5" />
@@ -85,14 +85,14 @@ export const Hero: React.FC<HeroProps> = ({
 
             <button
               onClick={onExploreProjects}
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 border-2 border-white hover:bg-white hover:text-[#1d3557] text-white font-black text-xs sm:text-sm uppercase tracking-widest rounded transition-all backdrop-blur-md cursor-pointer font-heading"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 border-2 border-white hover:bg-white hover:text-[#1d3557] text-white font-black text-xs sm:text-sm uppercase tracking-widest rounded-lg transition-all backdrop-blur-md cursor-pointer font-heading hover:shadow-lg active:scale-95"
             >
               <span>View Portfolio (85+ Projects)</span>
             </button>
 
             <a
               href={`tel:${COMPANY_DETAILS.phones[0]}`}
-              className="inline-flex items-center gap-2 px-4 py-4 text-xs sm:text-sm font-bold text-slate-200 hover:text-[#FFC107] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-4 text-xs sm:text-sm font-bold text-slate-200 hover:text-[#FFC107] transition-all hover:scale-105"
             >
               <Phone className="w-4 h-4 text-[#FFC107]" />
               <span>Direct Call: <strong className="text-white font-mono">{COMPANY_DETAILS.phones[0]}</strong></span>
@@ -102,7 +102,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Metric Badges Banner */}
           <div className="pt-6 border-t border-white/20 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {FOUNDER_BIO.stats.map((stat, idx) => (
-              <div key={idx} className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm">
+              <div key={idx} className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm box-pop interactive-card">
                 <div className="text-2xl sm:text-3xl font-black font-heading text-[#FFC107] font-mono">
                   {stat.value}
                 </div>

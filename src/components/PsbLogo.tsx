@@ -1,4 +1,5 @@
 import React from 'react';
+import { COMPANY_DETAILS } from '../data/companyData';
 
 interface PsbLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -17,19 +18,19 @@ export const PsbLogo: React.FC<PsbLogoProps> = ({
 }) => {
   if (customLogoUrl) {
     return (
-      <div className={`inline-flex items-center gap-3.5 ${className}`}>
+      <div className={`inline-flex items-center gap-3 select-none whitespace-nowrap flex-shrink-0 ${className}`}>
         <img
           src={customLogoUrl}
           alt="Pranav Sai Builders Logo"
-          className="h-11 w-auto object-contain"
+          className="h-11 w-auto object-contain flex-shrink-0"
         />
         {variant !== 'icon-only' && (
-          <div className="flex flex-col">
-            <span className={`font-heading font-black tracking-tight leading-none ${theme === 'dark' ? 'text-white' : 'text-[#1d3557]'}`}>
-              PRANAV SAI BUILDERS
+          <div className="flex flex-col whitespace-nowrap">
+            <span className={`font-heading font-black tracking-tight leading-none whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-[#1d3557]'}`}>
+              {COMPANY_DETAILS.name}
             </span>
-            <span className={`text-[10px] uppercase font-bold tracking-[0.2em] ${theme === 'dark' ? 'text-[#FFC107]' : 'text-[#457b9d]'}`}>
-              Sculpt Your Dream Home With Us
+            <span className={`text-[9.5px] uppercase font-bold tracking-wider mt-0.5 whitespace-nowrap ${theme === 'dark' ? 'text-[#FFC107]' : 'text-[#457b9d]'}`}>
+              {COMPANY_DETAILS.tagline}
             </span>
           </div>
         )}
@@ -38,21 +39,21 @@ export const PsbLogo: React.FC<PsbLogoProps> = ({
   }
 
   const iconSizes = {
-    sm: 'w-8 h-8',
-    md: 'w-11 h-11',
-    lg: 'w-13 h-13',
-    xl: 'w-16 h-16',
+    sm: 'w-7 h-7 sm:w-8 sm:h-8',
+    md: 'w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10',
+    lg: 'w-10 h-10 sm:w-12 sm:h-12',
+    xl: 'w-12 h-12 sm:w-16 sm:h-16',
   };
 
   const textSizes = {
-    sm: { title: 'text-sm font-black', sub: 'text-[8.5px]' },
-    md: { title: 'text-lg font-black', sub: 'text-[9.5px]' },
-    lg: { title: 'text-xl font-black', sub: 'text-[11px]' },
-    xl: { title: 'text-2xl font-black', sub: 'text-xs' },
+    sm: { title: 'text-xs sm:text-sm font-black', sub: 'text-[7.5px] sm:text-[8px]' },
+    md: { title: 'text-xs xs:text-sm sm:text-base xl:text-lg font-black', sub: 'text-[8px] xs:text-[8.5px] sm:text-[9.5px] xl:text-[10px]' },
+    lg: { title: 'text-base sm:text-xl font-black', sub: 'text-[9px] sm:text-[10.5px]' },
+    xl: { title: 'text-xl sm:text-2xl font-black', sub: 'text-xs' },
   };
 
   return (
-    <div className={`inline-flex items-center gap-3 select-none ${className}`}>
+    <div className={`inline-flex items-center gap-2 sm:gap-2.5 xl:gap-3 select-none flex-shrink-0 min-w-0 max-w-full ${className}`}>
       {/* Authentic PSB Geometric Triangular Red Monogram on Golden Yellow Shield */}
       <div className={`relative ${iconSizes[size]} flex-shrink-0 drop-shadow-md`}>
         <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,10 +101,10 @@ export const PsbLogo: React.FC<PsbLogoProps> = ({
       </div>
 
       {variant !== 'icon-only' && (
-        <div className={`flex flex-col ${variant === 'full' ? 'items-center text-center mt-2' : ''}`}>
-          <div className="flex items-center gap-1.5">
+        <div className={`flex flex-col min-w-0 justify-center ${variant === 'full' ? 'items-center text-center mt-2' : ''}`}>
+          <div className="flex items-center gap-1 min-w-0">
             <span
-              className={`font-heading font-black tracking-tight leading-none ${textSizes[size].title} ${
+              className={`font-heading font-black tracking-tight leading-tight truncate sm:whitespace-nowrap ${textSizes[size].title} ${
                 theme === 'dark' ? 'text-white' : 'text-[#1d3557]'
               }`}
             >
@@ -111,11 +112,12 @@ export const PsbLogo: React.FC<PsbLogoProps> = ({
             </span>
           </div>
           <span
-            className={`font-bold uppercase tracking-[0.2em] mt-1 ${textSizes[size].sub} ${
+            className={`font-bold uppercase tracking-wider mt-0.5 truncate sm:whitespace-nowrap ${textSizes[size].sub} ${
               theme === 'dark' ? 'text-[#FFC107]' : 'text-[#457b9d]'
             }`}
           >
-            Sculpt Your Dream Home With Us
+            <span className="inline sm:hidden">Civil Engineers & Builders</span>
+            <span className="hidden sm:inline">{COMPANY_DETAILS.tagline}</span>
           </span>
         </div>
       )}

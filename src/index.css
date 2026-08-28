@@ -93,4 +93,30 @@
   animation: pulseGlow 3s infinite ease-in-out;
 }
 
+/* User Request 5: Interactive card pop up + highlight on touch/hover */
+.interactive-card, .box-pop {
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow, border-color;
+}
+
+.interactive-card:hover, .box-pop:hover {
+  transform: translateY(-4px) scale(1.012);
+  box-shadow: 0 16px 32px -8px rgba(29, 53, 87, 0.14), 0 0 0 2px rgba(230, 57, 70, 0.35);
+  border-color: #E63946 !important;
+}
+
+.interactive-card:active, .box-pop:active {
+  transform: scale(0.985);
+  box-shadow: 0 4px 12px rgba(29, 53, 87, 0.12);
+}
+
+/* Horizontal scroll styling for mobile swipeable view */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 

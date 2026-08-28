@@ -1,283 +1,233 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { 
   Home, 
   Palette, 
   Hammer, 
-  CheckCircle2, 
-  ArrowRight, 
-  ShieldAlert, 
-  Clock, 
-  Sparkles, 
+  Paintbrush, 
+  Zap, 
+  Droplet, 
   Layers, 
-  FileCheck,
-  ChevronRight,
-  ShieldCheck
+  LayoutGrid, 
+  ArrowRight, 
+  Sparkles, 
+  ChevronRight, 
+  Building2, 
+  Compass, 
+  HardHat, 
+  CheckCircle2, 
+  ExternalLink 
 } from 'lucide-react';
-import { SERVICES_DATA } from '../data/companyData';
+import { SERVICES_DATA, POSTER_HIGHLIGHTS } from '../data/companyData';
 
 interface ServicesSectionProps {
   onOpenQuoteModal: (serviceId?: 'construction' | 'interior' | 'renovation') => void;
+  onNavigateToServicesPage: (serviceId?: string) => void;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
   onOpenQuoteModal,
+  onNavigateToServicesPage,
 }) => {
-  const [activeTab, setActiveTab] = useState<string>('construction');
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeServiceIndex, setActiveServiceIndex] = useState(0);
 
-  const activeService = SERVICES_DATA.find((s) => s.id === activeTab) || SERVICES_DATA[0];
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, clientWidth } = scrollContainerRef.current;
+      if (clientWidth > 0) {
+        const index = Math.round(scrollLeft / clientWidth);
+        setActiveServiceIndex(Math.min(Math.max(index, 0), SERVICES_DATA.length - 1));
+      }
+    }
+  };
+
+  const scrollToIndex = (index: number) => {
+    if (scrollContainerRef.current) {
+      const { clientWidth } = scrollContainerRef.current;
+      scrollContainerRef.current.scrollTo({
+        left: index * clientWidth,
+        behavior: 'smooth',
+      });
+      setActiveServiceIndex(index);
+    }
+  };
 
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
       case 'Home':
         return <Home className="w-5 h-5" />;
+      case 'Hammer':
+        return <Hammer className="w-5 h-5" />;
       case 'Palette':
         return <Palette className="w-5 h-5" />;
-      case 'Hammer':
+      case 'Paintbrush':
+        return <Paintbrush className="w-5 h-5" />;
+      case 'Zap':
+        return <Zap className="w-5 h-5" />;
+      case 'Droplet':
+        return <Droplet className="w-5 h-5" />;
+      case 'Layers':
+        return <Layers className="w-5 h-5" />;
+      case 'LayoutGrid':
+        return <LayoutGrid className="w-5 h-5" />;
+      case 'Compass':
+        return <Compass className="w-5 h-5" />;
+      case 'HardHat':
+        return <HardHat className="w-5 h-5" />;
       default:
-        return <Hammer className="w-5 h-5" />;
+        return <Building2 className="w-5 h-5" />;
     }
   };
 
   return (
-    <section id="services" className="py-20 lg:py-28 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden">
+    <section id="services" className="py-16 sm:py-20 lg:py-28 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden scroll-mt-24">
       {/* Decorative Dots Pattern */}
       <div className="absolute inset-0 pattern-dots-dark opacity-20 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10 lg:space-y-12">
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-200 text-[#E63946] text-xs font-bold uppercase tracking-widest shadow-sm">
             <Layers className="w-3.5 h-3.5" />
-            <span>End-to-End Civil & Architectural Services</span>
+            <span>Complete Engineering & Civil Capabilities</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-[#1d3557] tracking-tight">
-            Our Core Construction & Design Services
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black font-heading text-[#1d3557] tracking-tight">
+            Our 8 Core Construction & Interior Services
           </h2>
-          <p className="text-slate-600 text-base md:text-lg">
-            From greenfield villa construction to bespoke modular interiors and structural renovations across Chennai.
+          <p className="text-slate-600 text-sm sm:text-base md:text-lg">
+            {POSTER_HIGHLIGHTS.subHeading}
           </p>
+
+          {/* Mobile Natural Hand Swipe Indicator */}
+          <div className="flex md:hidden items-center justify-center gap-2 text-[11px] font-bold text-[#E63946] bg-red-50/90 py-1 px-3 rounded-full border border-red-200 w-fit mx-auto animate-pulse">
+            <span>👈 Swipe left & right to explore all 8 services 👉</span>
+          </div>
         </div>
 
-        {/* 3 Main Service Selector Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-          {SERVICES_DATA.map((service) => {
-            const isCurrent = activeTab === service.id;
-            return (
-              <button
-                key={service.id}
-                onClick={() => setActiveTab(service.id)}
-                className={`p-6 rounded-xl text-left transition-all border cursor-pointer relative overflow-hidden group ${
-                  isCurrent
-                    ? 'bg-white border-2 border-[#E63946] shadow-xl ring-2 ring-red-100'
-                    : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div
-                    className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors ${
-                      isCurrent
-                        ? 'bg-[#E63946] text-white'
-                        : 'bg-slate-100 text-[#1d3557] group-hover:bg-[#1d3557] group-hover:text-white'
-                    }`}
-                  >
-                    {getServiceIcon(service.icon)}
-                  </div>
-                  {isCurrent && (
-                    <span className="px-2.5 py-1 rounded bg-red-50 text-[#E63946] text-[11px] font-bold uppercase tracking-wider border border-red-200">
-                      Selected
-                    </span>
-                  )}
-                </div>
-
-                <h3 className="text-xl font-bold font-heading text-[#1d3557] mb-1">
-                  {service.title}
-                </h3>
-                <p className="text-xs text-[#E63946] font-bold uppercase tracking-wider mb-3">
-                  {service.subtitle}
-                </p>
-                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                  {service.description}
-                </p>
-
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-xs font-bold uppercase tracking-wider text-[#1d3557] group-hover:text-[#E63946] transition-colors">
-                  <span>Explore Workflow & Packages</span>
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </div>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Detailed Service Deep Dive Showcase */}
-        <div className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 lg:p-10 shadow-xl space-y-12">
+        {/* Poster Highlight Banner: ₹2250 / Sq.Ft Construction Offer + 3 Inclusions */}
+        <div className="rounded-3xl bg-gradient-to-br from-[#14253e] via-[#1d3557] to-[#274773] text-white p-5 sm:p-8 lg:p-10 border-2 border-[#FFC107] shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none font-mono text-8xl font-black hidden md:block">
+            ₹2250
+          </div>
           
-          {/* Top Banner & Overview */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#E63946]">
-                <span>Civil Engineering Excellence</span>
-                <span>•</span>
-                <span>{activeService.subtitle}</span>
+          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFC107]/20 border border-[#FFC107]/40 text-[#FFC107] text-xs font-black uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Special Turnkey Offer</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black font-heading text-[#1d3557]">
-                {activeService.title}
+              <h3 className="text-xl sm:text-3xl lg:text-4xl font-black font-heading text-white leading-tight">
+                CONSTRUCTION COST @ JUST <span className="text-[#FFC107] font-mono">{POSTER_HIGHLIGHTS.packagePrice}</span> {POSTER_HIGHLIGHTS.packageUnit}
               </h3>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                {activeService.description}
+              <p className="text-slate-200 text-xs sm:text-sm font-medium">
+                {POSTER_HIGHLIGHTS.packageTagline} — Complete Labour, 1st Quality Materials, Architectural Design & On-Site Supervision.
               </p>
 
-              {/* Key Highlights */}
-              <div className="space-y-2.5 pt-2">
-                {activeService.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-[#E63946] flex-shrink-0 mt-0.5" />
-                    <span>{feat}</span>
+              {/* 3 Drawing/Test Inclusions from Poster */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                {POSTER_HIGHLIGHTS.specialInclusions.map((inc) => (
+                  <div key={inc.id} className="flex items-center gap-2.5 p-2 rounded-xl bg-white/10 border border-white/10 text-xs">
+                    <CheckCircle2 className="w-4 h-4 text-[#FFC107] flex-shrink-0" />
+                    <div>
+                      <div className="font-bold text-white text-[11px]">{inc.title}</div>
+                      <div className="text-[10px] text-[#FFC107] font-semibold">{inc.badge}</div>
+                    </div>
                   </div>
                 ))}
               </div>
-
-              <div className="pt-4 flex flex-wrap gap-3">
-                <button
-                  onClick={() => onOpenQuoteModal(activeService.id as any)}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#E63946] hover:bg-[#d90429] text-white font-bold uppercase tracking-wider rounded shadow-md text-xs sm:text-sm font-heading cursor-pointer"
-                >
-                  <span>Get Quote for {activeService.title}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
             </div>
 
-            {/* Service Banner Image */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-xl overflow-hidden shadow-xl border border-slate-200 aspect-[4/3] group">
-                <img
-                  src={activeService.bannerImage}
-                  alt={activeService.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1d3557]/80 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-lg bg-white/95 backdrop-blur-md border border-slate-200 text-xs text-slate-800 flex items-center justify-between shadow-md">
-                  <span className="font-bold text-[#1d3557]">Verified Tier-1 Brands (Tata TMT / UltraTech)</span>
-                  <ShieldCheck className="w-4 h-4 text-[#E63946]" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Process Workflow Steps */}
-          <div className="pt-8 border-t border-slate-200 space-y-6">
-            <div>
-              <h4 className="text-xl sm:text-2xl font-black font-heading text-[#1d3557]">
-                Step-by-Step Execution Lifecycle
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Our disciplined milestone method guarantees structural compliance and on-time handover.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-              {activeService.processSteps.map((step) => (
-                <div
-                  key={step.step}
-                  className="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#FFC107] space-y-2 relative transition-colors shadow-sm"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-[#1d3557] text-[#FFC107] font-black flex items-center justify-center text-xs font-mono">
-                    0{step.step}
-                  </div>
-                  <div className="text-sm font-bold font-heading text-[#1d3557]">
-                    {step.title}
-                  </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Specification Packages & Pricing Cards */}
-          <div className="pt-8 border-t border-slate-200 space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
-              <div>
-                <h4 className="text-xl sm:text-2xl font-black font-heading text-[#1d3557]">
-                  Transparent Specification Packages
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
-                  Itemized pricing with strict material certifications.
-                </p>
-              </div>
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto flex-shrink-0">
               <button
-                onClick={() => onOpenQuoteModal(activeService.id as any)}
-                className="text-xs font-bold text-[#E63946] hover:underline flex items-center gap-1 uppercase tracking-wider"
+                onClick={() => onNavigateToServicesPage('house-construction')}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#FFC107] hover:bg-[#ffb300] text-[#14253e] font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer font-heading"
               >
-                Customizing your own plan? Use Instant Estimator →
+                <span>View Full Service Page</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => onOpenQuoteModal('construction')}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#E63946] hover:bg-[#d90429] text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-md transition-all"
+              >
+                <span>Instant Estimate</span>
               </button>
             </div>
+          </div>
+        </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {activeService.packages.map((pkg, idx) => (
-                <div
-                  key={idx}
-                  className={`p-6 rounded-2xl border flex flex-col justify-between transition-all ${
-                    pkg.popular
-                      ? 'bg-white border-2 border-[#FFC107] shadow-xl relative'
-                      : 'bg-white border-slate-200 shadow-sm'
-                  }`}
-                >
-                  {pkg.popular && (
-                    <span className="absolute -top-3 right-6 px-3 py-1 bg-[#FFC107] text-[#1d3557] text-[10px] font-black uppercase tracking-widest rounded-full shadow-md">
-                      Most Selected
+        {/* 8 Services (Grid on Desktop, Natural 1-Card Touch Swipe on Mobile) */}
+        <div className="space-y-4">
+          {/* Service Cards Container */}
+          <div
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scroll-smooth touch-pan-x scrollbar-none pb-4 pt-1"
+          >
+            {SERVICES_DATA.map((service, index) => (
+              <div
+                key={service.id}
+                onClick={() => onNavigateToServicesPage(service.id)}
+                className="w-full min-w-full sm:min-w-0 md:min-w-0 snap-start p-6 rounded-2xl text-left transition-all border border-slate-200 hover:border-[#E63946] bg-white shadow-sm hover:shadow-xl cursor-pointer relative overflow-hidden group flex flex-col justify-between flex-shrink-0"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-colors shadow-sm bg-slate-100 text-[#1d3557] group-hover:bg-[#E63946] group-hover:text-white">
+                      {getServiceIcon(service.icon)}
+                    </div>
+                    <span className="text-[11px] font-mono font-bold text-slate-400 group-hover:text-[#E63946] transition-colors">
+                      0{index + 1}
                     </span>
-                  )}
-
-                  <div className="space-y-4">
-                    <div>
-                      <h5 className="text-lg font-bold font-heading text-[#1d3557]">
-                        {pkg.name}
-                      </h5>
-                      <div className="text-2xl font-black text-[#E63946] font-mono mt-1">
-                        {pkg.ratePerSqFt}
-                      </div>
-                      <p className="text-xs text-slate-600 mt-1">
-                        {pkg.description}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-100 space-y-2">
-                      <div className="text-[11px] font-bold uppercase tracking-wider text-slate-700">
-                        Package Inclusions:
-                      </div>
-                      {pkg.includes.map((inc, i) => (
-                        <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#E63946] flex-shrink-0 mt-0.5" />
-                          <span>{inc}</span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-slate-100">
-                    <button
-                      onClick={() => onOpenQuoteModal(activeService.id as any)}
-                      className={`w-full py-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                        pkg.popular
-                          ? 'bg-[#E63946] hover:bg-[#d90429] text-white shadow-md'
-                          : 'bg-[#1d3557] hover:bg-[#14253e] text-white'
-                      }`}
-                    >
-                      Select & Calculate Estimate
-                    </button>
-                  </div>
+                  <h3 className="text-base sm:text-lg font-bold font-heading text-[#1d3557] mb-1 group-hover:text-[#E63946] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-[11px] text-[#E63946] font-bold uppercase tracking-wider mb-2.5 line-clamp-1">
+                    {service.subtitle}
+                  </p>
+                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                    {service.description}
+                  </p>
                 </div>
-              ))}
-            </div>
+
+                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#1d3557] group-hover:text-[#E63946] transition-colors">
+                  <span>View Specifications</span>
+                  <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                </div>
+              </div>
+            ))}
           </div>
 
+          {/* Mobile Swipe Pagination Dots Indicator */}
+          <div className="flex md:hidden items-center justify-center gap-2 pt-1">
+            {SERVICES_DATA.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToIndex(i)}
+                aria-label={`Go to service ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  activeServiceIndex === i
+                    ? 'w-6 bg-[#E63946]'
+                    : 'w-2 bg-slate-300 hover:bg-slate-400'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Primary View All Redirect Button to Dedicated Page */}
+          <div className="text-center pt-6 sm:pt-8">
+            <button
+              onClick={() => onNavigateToServicesPage()}
+              className="inline-flex items-center gap-3 px-6 sm:px-9 py-3.5 sm:py-4 rounded-xl bg-[#14253e] hover:bg-[#1d3557] text-[#FFC107] border-2 border-[#FFC107]/40 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform hover:scale-105 active:scale-95 cursor-pointer font-heading"
+            >
+              <span>View All 8 Services & Rate Cards</span>
+              <ExternalLink className="w-4 h-4 text-[#FFC107]" />
+            </button>
+          </div>
         </div>
 
       </div>
     </section>
   );
 };
-

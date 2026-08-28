@@ -12,6 +12,7 @@ export interface CompanyInfo {
   city: string;
   state: string;
   workingHours: string;
+  instagramUrl?: string;
 }
 
 export interface CareerMilestone {

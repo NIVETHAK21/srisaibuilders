@@ -30,14 +30,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   if (!isOpen) return null;
 
   // Rate calculations
-  let baseRate = 2350; // default premium construction
+  let baseRate = 2250; // default signature construction
   if (serviceType === 'construction') {
-    baseRate = tier === 'standard' ? 1950 : tier === 'premium' ? 2350 : 2850;
+    baseRate = tier === 'standard' ? 1950 : tier === 'premium' ? 2250 : 2850;
   } else if (serviceType === 'interior') {
-    baseRate = tier === 'standard' ? 1200 : tier === 'premium' ? 1650 : 2200;
+    baseRate = tier === 'standard' ? 1250 : tier === 'premium' ? 1750 : 2400;
   } else {
     // renovation
-    baseRate = tier === 'standard' ? 750 : tier === 'premium' ? 1100 : 1600;
+    baseRate = tier === 'standard' ? 850 : tier === 'premium' ? 1250 : 1750;
   }
 
   const baseTotal = areaSqFt * baseRate;
