@@ -431,8 +431,8 @@ export const CostEstimatorSection: React.FC<CostEstimatorSectionProps> = ({ onOp
   };
 
   return (
-    <section id="estimator" className="py-20 lg:py-28 bg-white text-[#1d3557] relative scroll-mt-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="estimator" className="py-12 sm:py-16 lg:py-20 bg-white text-[#1d3557] relative scroll-mt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">

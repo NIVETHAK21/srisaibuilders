@@ -65,8 +65,8 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-[#f8f9fa] text-[#1d3557] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-[#f8f9fa] text-[#1d3557] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">

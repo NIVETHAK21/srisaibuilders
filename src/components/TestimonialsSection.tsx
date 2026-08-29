@@ -27,8 +27,8 @@ export const TestimonialsSection: React.FC = () => {
   const current = TESTIMONIALS_DATA[currentIndex];
 
   return (
-    <section id="testimonials" className="py-20 lg:py-28 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="testimonials" className="py-12 sm:py-16 lg:py-20 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">

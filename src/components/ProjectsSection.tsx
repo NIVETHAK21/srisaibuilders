@@ -81,8 +81,8 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   };
 
   return (
-    <section id="projects" className="py-16 sm:py-20 lg:py-28 bg-[#f8f9fa] text-[#1d3557] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+    <section id="projects" className="py-12 sm:py-16 lg:py-20 bg-[#f8f9fa] text-[#1d3557] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-6 sm:pb-8">
