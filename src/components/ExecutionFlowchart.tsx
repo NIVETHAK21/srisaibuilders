@@ -143,11 +143,11 @@ export const ExecutionFlowchart: React.FC<{ onOpenQuoteModal: () => void }> = ({
   };
 
   return (
-    <section id="flowchart" className="py-12 sm:py-16 lg:py-20 bg-white text-[#1d3557] relative overflow-hidden scroll-mt-24 border-y border-slate-200">
+    <section id="flowchart" className="py-8 sm:py-10 lg:py-12 bg-white text-[#1d3557] relative overflow-hidden scroll-mt-24 border-y border-slate-200">
       {/* Background Blueprint Grid */}
       <div className="absolute inset-0 pattern-dots-dark opacity-15 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8 sm:space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6 sm:space-y-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">

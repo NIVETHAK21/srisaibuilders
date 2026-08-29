@@ -45,11 +45,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   };
 
   return (
-    <section id="about" className="py-12 sm:py-16 lg:py-20 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden scroll-mt-24">
+    <section id="about" className="py-8 sm:py-10 lg:py-12 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden scroll-mt-24">
       {/* Background Subtle Grid Texture */}
       <div className="absolute inset-0 pattern-dots-dark opacity-30 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12 sm:space-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8 sm:space-y-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
