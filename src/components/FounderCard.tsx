@@ -118,7 +118,7 @@ export const FounderCard: React.FC = () => {
             title="Call Er. D. Manikandan on 9952030796"
           >
             <Phone className="w-3.5 h-3.5 animate-bounce" />
-            <span>Call Er. Mani</span>
+            <span>Call Er. Manikandan</span>
           </a>
         </div>
 

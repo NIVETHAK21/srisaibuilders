@@ -1,33 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight, Quote, MessageSquareHeart, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Star, Quote, MessageSquareHeart, CheckCircle2, Sparkles, MoveHorizontal } from 'lucide-react';
 import { TESTIMONIALS_DATA } from '../data/companyData';
 
 export const TestimonialsSection: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
+  const startXRef = useRef<number>(0);
+  const currentXRef = useRef<number>(0);
+
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || isSwiping) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS_DATA.length);
-    }, 6000);
+    }, 7000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, isSwiping]);
 
-  const prevTestimonial = () => {
+  // Touch Swipe Event Handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS_DATA.length) % TESTIMONIALS_DATA.length);
+    setIsSwiping(true);
+    startXRef.current = e.touches[0].clientX;
+    currentXRef.current = e.touches[0].clientX;
   };
 
-  const nextTestimonial = () => {
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isSwiping) return;
+    currentXRef.current = e.touches[0].clientX;
+    const diff = currentXRef.current - startXRef.current;
+    // Cap visual drag offset for natural rubber-band feel
+    setDragOffset(Math.max(Math.min(diff, 120), -120));
+  };
+
+  const handleTouchEnd = () => {
+    if (!isSwiping) return;
+    const diff = currentXRef.current - startXRef.current;
+    const threshold = 45; // Minimum px for swipe detection
+
+    if (diff < -threshold) {
+      // Swiped Left -> Next
+      setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS_DATA.length);
+    } else if (diff > threshold) {
+      // Swiped Right -> Previous
+      setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS_DATA.length) % TESTIMONIALS_DATA.length);
+    }
+
+    setDragOffset(0);
+    setIsSwiping(false);
+  };
+
+  // Mouse Drag Handlers for Desktop Touch/Drag Experience
+  const handleMouseDown = (e: React.MouseEvent) => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS_DATA.length);
+    setIsSwiping(true);
+    startXRef.current = e.clientX;
+    currentXRef.current = e.clientX;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isSwiping) return;
+    currentXRef.current = e.clientX;
+    const diff = currentXRef.current - startXRef.current;
+    setDragOffset(Math.max(Math.min(diff, 120), -120));
+  };
+
+  const handleMouseUp = () => {
+    handleTouchEnd();
+  };
+
+  const handleMouseLeave = () => {
+    if (isSwiping) {
+      handleTouchEnd();
+    }
   };
 
   const current = TESTIMONIALS_DATA[currentIndex];
 
   return (
-    <section id="testimonials" className="py-8 sm:py-10 lg:py-12 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden">
+    <section id="testimonials" className="py-8 sm:py-10 lg:py-12 bg-[#f8f9fa] text-[#1d3557] relative overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Header */}
@@ -42,22 +95,48 @@ export const TestimonialsSection: React.FC = () => {
           <p className="text-slate-600 text-sm sm:text-base">
             Real experiences from clients who entrusted their homes and commercial investments to Er. D. Manikandan.
           </p>
+
+          {/* Hand Swipe Visual Indicator */}
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#E63946] bg-red-50/90 py-1.5 px-4 rounded-full border border-red-200 shadow-sm animate-pulse">
+            <MoveHorizontal className="w-3.5 h-3.5" />
+            <span>👈 Swipe left or right with your hand to browse reviews 👉</span>
+          </div>
         </div>
 
-        {/* Carousel Card Container */}
+        {/* Hand Swipeable Testimonial Card Container */}
         <div className="max-w-4xl mx-auto">
-          <div className="relative rounded-2xl bg-white border border-slate-200 p-8 sm:p-12 shadow-xl space-y-6">
+          <div
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            style={{
+              transform: `translateX(${dragOffset}px)`,
+              transition: isSwiping ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+            }}
+            className={`relative rounded-3xl bg-white border-2 border-slate-200 p-6 sm:p-10 lg:p-12 shadow-xl space-y-6 touch-pan-y cursor-grab ${
+              isSwiping ? 'cursor-grabbing scale-[0.99] border-[#E63946]/50 shadow-2xl' : 'hover:border-slate-300'
+            }`}
+          >
             
             <div className="flex justify-between items-start">
-              <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-[#E63946]">
-                <Quote className="w-8 h-8" />
+              <div className="p-3 bg-red-50 border border-red-200 rounded-2xl text-[#E63946] shadow-sm">
+                <Quote className="w-7 h-7 sm:w-8 sm:h-8" />
               </div>
 
-              {/* Star Rating */}
-              <div className="flex items-center gap-1">
-                {[...Array(current.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[#FFC107] text-[#FFC107]" />
-                ))}
+              {/* Star Rating & Review Count */}
+              <div className="flex flex-col items-end gap-1">
+                <div className="flex items-center gap-1">
+                  {[...Array(current.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-[#FFC107] text-[#FFC107]" />
+                  ))}
+                </div>
+                <span className="text-[11px] font-mono font-bold text-slate-400">
+                  Review {currentIndex + 1} of {TESTIMONIALS_DATA.length}
+                </span>
               </div>
             </div>
 
@@ -72,7 +151,7 @@ export const TestimonialsSection: React.FC = () => {
                 <img
                   src={current.avatar}
                   alt={current.clientName}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-[#FFC107] shadow-sm"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-[#FFC107] shadow-sm flex-shrink-0"
                 />
                 <div>
                   <div className="font-heading font-bold text-[#1d3557] text-base">
@@ -92,9 +171,9 @@ export const TestimonialsSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Carousel Navigation Buttons */}
+            {/* Swipe Pagination Dots Indicator (Clickable + Hand Swiped) */}
             <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-              <div className="flex gap-1.5">
+              <div className="flex items-center gap-1.5">
                 {TESTIMONIALS_DATA.map((_, idx) => (
                   <button
                     key={idx}
@@ -102,29 +181,17 @@ export const TestimonialsSection: React.FC = () => {
                       setIsAutoPlaying(false);
                       setCurrentIndex(idx);
                     }}
-                    className={`h-2 rounded-full transition-all cursor-pointer ${
-                      currentIndex === idx ? 'w-8 bg-[#E63946]' : 'w-2 bg-slate-200 hover:bg-slate-300'
+                    className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                      currentIndex === idx ? 'w-8 bg-[#E63946]' : 'w-2.5 bg-slate-200 hover:bg-slate-300'
                     }`}
-                    aria-label={`Go to slide ${idx + 1}`}
+                    aria-label={`Go to review ${idx + 1}`}
                   />
                 ))}
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={prevTestimonial}
-                  className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-[#1d3557] transition-colors cursor-pointer"
-                  aria-label="Previous testimonial"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={nextTestimonial}
-                  className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-[#1d3557] transition-colors cursor-pointer"
-                  aria-label="Next testimonial"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+              <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                <span>Hand swipe active</span>
+                <Sparkles className="w-3 h-3 text-[#FFC107]" />
               </div>
             </div>
 

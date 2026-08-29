@@ -11,23 +11,78 @@ import {
   HelpCircle, 
   ChevronDown, 
   Building2,
-  CalendarCheck
+  CalendarCheck,
+  CheckSquare,
+  Square,
+  Sparkles,
+  Plus
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { COMPANY_DETAILS, FAQ_ITEMS } from '../data/companyData';
+
+const ALL_SERVICES_CHOICES = [
+  { id: 'House Construction', label: '1. House Construction (@ ₹2250/sq.ft)', short: 'House Construction' },
+  { id: 'Renovation & Remodeling', label: '2. Renovation & Remodeling', short: 'Renovation & Remodeling' },
+  { id: 'Interior Design', label: '3. Interior Design & Modular Kitchen', short: 'Interior Design' },
+  { id: 'Painting Works', label: '4. Painting Works & Textures', short: 'Painting Works' },
+  { id: 'Electrical Works', label: '5. Electrical Works & Power Systems', short: 'Electrical Works' },
+  { id: 'Plumbing Works', label: '6. Plumbing Works & Sanitary Solutions', short: 'Plumbing Works' },
+  { id: '3D Plan Drawing', label: '7. 3D Plan Drawing & Elevation', short: '3D Plan Drawing' },
+  { id: 'Structural Drawing', label: '8. Structural Drawing & BBS', short: 'Structural Drawing' },
+  { id: 'Soil Test', label: '9. Soil Test & SBC Report', short: 'Soil Test' },
+  { id: 'Landscape Design', label: '10. Landscape Design & Hardscaping', short: 'Landscape Design' },
+  { id: 'Properties Buying & Selling', label: '11. Properties Buying & Selling', short: 'Properties Advisory' },
+  { id: 'Civil Construction & Renovation Work', label: '12. Civil Construction & Heavy Infrastructure', short: 'Civil Construction' },
+];
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    serviceType: 'Turnkey Construction',
+    selectedServices: ['House Construction'] as string[],
     plotArea: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const toggleServiceChoice = (serviceName: string) => {
+    setFormData((prev) => {
+      const exists = prev.selectedServices.includes(serviceName);
+      if (exists) {
+        const next = prev.selectedServices.filter((s) => s !== serviceName);
+        return { ...prev, selectedServices: next.length === 0 ? [serviceName] : next };
+      } else {
+        return { ...prev, selectedServices: [...prev.selectedServices, serviceName] };
+      }
+    });
+  };
+
+  const selectCombo = (type: 'turnkey' | 'all' | 'interior' | 'civil') => {
+    if (type === 'turnkey') {
+      setFormData((prev) => ({
+        ...prev,
+        selectedServices: ['House Construction', '3D Plan Drawing', 'Structural Drawing', 'Soil Test'],
+      }));
+    } else if (type === 'all') {
+      setFormData((prev) => ({
+        ...prev,
+        selectedServices: ALL_SERVICES_CHOICES.map((s) => s.id),
+      }));
+    } else if (type === 'interior') {
+      setFormData((prev) => ({
+        ...prev,
+        selectedServices: ['Interior Design', 'Painting Works', 'Electrical Works', 'Plumbing Works'],
+      }));
+    } else if (type === 'civil') {
+      setFormData((prev) => ({
+        ...prev,
+        selectedServices: ['Civil Construction & Renovation Work', 'Structural Drawing', 'Soil Test'],
+      }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +95,12 @@ export const ContactSection: React.FC = () => {
         body: JSON.stringify({
           to_email: COMPANY_DETAILS.email,
           company: COMPANY_DETAILS.name,
-          ...formData,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          servicesRequested: formData.selectedServices.join(', '),
+          plotArea: formData.plotArea,
+          message: formData.message,
           submittedAt: new Date().toISOString(),
         }),
       }).catch(() => {});
@@ -143,20 +203,69 @@ export const ContactSection: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                      Service Required
-                    </label>
-                    <select
-                      value={formData.serviceType}
-                      onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-[#1d3557] text-sm focus:outline-none focus:border-[#1d3557] focus:bg-white transition-colors font-medium"
-                    >
-                      <option value="Turnkey Construction">Turnkey Residential Construction</option>
-                      <option value="Modular Interior">Interior Design & Fit-Out</option>
-                      <option value="Structural Renovation">Renovation & Floor Addition</option>
-                      <option value="Commercial Complex">Commercial Building Construction</option>
-                      <option value="Plan Approval & 3D">Architectural 3D & Plan Approval</option>
-                    </select>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        Services (Multi-Choice Enabled)
+                      </label>
+                      <span className="text-[11px] font-bold text-[#E63946] bg-red-50 px-2 py-0.5 rounded-full border border-red-200">
+                        {formData.selectedServices.length} Selected
+                      </span>
+                    </div>
+
+                    {/* Quick Combo Presets */}
+                    <div className="flex flex-wrap items-center gap-1.5 mb-2.5 text-[11px]">
+                      <span className="text-slate-500 font-semibold">Quick Select:</span>
+                      <button
+                        type="button"
+                        onClick={() => selectCombo('turnkey')}
+                        className="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors cursor-pointer"
+                      >
+                        ⚡ Turnkey (House + 3D + Soil)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => selectCombo('interior')}
+                        className="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors cursor-pointer"
+                      >
+                        🎨 Interior & MEP
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => selectCombo('all')}
+                        className="px-2 py-0.5 rounded bg-red-50 hover:bg-red-100 text-[#E63946] font-bold transition-colors cursor-pointer"
+                      >
+                        All 12 Services
+                      </button>
+                    </div>
+
+                    {/* Multi-Select Badges Grid for All 12 Services */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-56 overflow-y-auto p-2 bg-slate-50 border border-slate-200 rounded-xl">
+                      {ALL_SERVICES_CHOICES.map((service) => {
+                        const isChecked = formData.selectedServices.includes(service.id);
+                        return (
+                          <button
+                            key={service.id}
+                            type="button"
+                            onClick={() => toggleServiceChoice(service.id)}
+                            className={`flex items-center gap-2 p-2 rounded-lg text-left text-xs transition-all cursor-pointer border ${
+                              isChecked
+                                ? 'bg-white border-[#E63946] text-[#1d3557] font-bold shadow-sm ring-1 ring-red-100'
+                                : 'bg-slate-100/70 border-transparent text-slate-600 hover:bg-white hover:text-[#1d3557]'
+                            }`}
+                          >
+                            <div className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 border transition-colors ${
+                              isChecked ? 'bg-[#E63946] border-[#E63946] text-white' : 'border-slate-300 bg-white'
+                            }`}>
+                              {isChecked ? <CheckSquare className="w-3 h-3" /> : <Square className="w-3 h-3 text-transparent" />}
+                            </div>
+                            <span className="truncate">{service.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <p className="text-[10.5px] text-slate-500 mt-1">
+                      💡 Tap any service above to add or remove it from your project inquiry.
+                    </p>
                   </div>
                 </div>
 

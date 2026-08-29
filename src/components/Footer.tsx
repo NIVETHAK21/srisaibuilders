@@ -142,9 +142,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenQuoteModal }) 
           {/* Col 3: Services (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold font-heading text-[#FFC107] uppercase tracking-widest">
-              8 Core Services
+              Services
             </h4>
-            <ul className="space-y-2 text-xs text-slate-300">
+            <ul className="space-y-1.5 text-xs text-slate-300">
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
                   • House Construction (@ ₹2250/sq.ft)
@@ -162,27 +162,47 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenQuoteModal }) 
               </li>
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
-                  • Painting Work & Textures
+                  • Painting Works & Textures
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
-                  • Electrical Work & Power Systems
+                  • Electrical Works & Power Systems
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
-                  • Plumbing Work & Sanitary Solutions
+                  • Plumbing Works & Sanitary Solutions
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
-                  • False Ceiling & POP Works
+                  • 3D Plan Drawing & Elevation
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
-                  • Tile & Granite Solutions
+                  • Structural Drawing & BBS
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
+                  • Soil Test & Bearing Analysis
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
+                  • Landscape Design & Hardscaping
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
+                  • Properties Buying & Selling Advisory
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-[#FFC107] text-left transition-colors cursor-pointer">
+                  • Civil Construction & Heavy Works
                 </button>
               </li>
             </ul>

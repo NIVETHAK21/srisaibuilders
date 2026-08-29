@@ -140,26 +140,26 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-heading tracking-tight text-white leading-tight">
-              Our 12 Comprehensive <span className="text-[#FFC107]">Construction, Civil & Interior</span> Services
+              Services & <span className="text-[#FFC107]">Engineering Specifications</span>
             </h1>
 
             <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl">
               {POSTER_HIGHLIGHTS.subHeading}
             </p>
 
-            {/* Poster Signature ₹2250/sq.ft All-Inclusive Banner Card */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-red-950/80 via-red-900/60 to-[#1d3557]/80 border-2 border-[#FFC107] shadow-xl backdrop-blur-md space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <div className="text-xs font-black uppercase tracking-widest text-[#FFC107]">
+            {/* Poster Signature ₹2250/sq.ft All-Inclusive Banner Card (Mobile Responsive Box Fix) */}
+            <div className="p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-red-950/90 via-red-900/80 to-[#1d3557]/90 border-2 border-[#FFC107] shadow-xl backdrop-blur-md space-y-4 max-w-full overflow-hidden">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1 min-w-0">
+                  <div className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-[#FFC107]">
                     Signature Turnkey Offer
                   </div>
-                  <div className="text-2xl sm:text-3xl lg:text-4xl font-black font-heading text-white flex items-baseline gap-2 mt-0.5">
+                  <div className="text-lg sm:text-2xl lg:text-3xl font-black font-heading text-white flex flex-wrap items-baseline gap-x-2 gap-y-1">
                     <span>CONSTRUCTION COST @ JUST</span>
-                    <span className="text-[#FFC107] font-mono">{POSTER_HIGHLIGHTS.packagePrice}</span>
-                    <span className="text-sm font-bold text-slate-300">{POSTER_HIGHLIGHTS.packageUnit}</span>
+                    <span className="text-[#FFC107] font-mono whitespace-nowrap">{POSTER_HIGHLIGHTS.packagePrice}</span>
+                    <span className="text-xs sm:text-sm font-bold text-slate-300 whitespace-nowrap">{POSTER_HIGHLIGHTS.packageUnit}</span>
                   </div>
-                  <div className="text-xs sm:text-sm font-semibold text-slate-200 mt-1">
+                  <div className="text-xs sm:text-sm font-semibold text-slate-200 pt-0.5">
                     {POSTER_HIGHLIGHTS.packageTagline}
                   </div>
                 </div>
@@ -169,7 +169,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     setSelectedServiceId('house-construction');
                     onOpenQuoteModal('construction');
                   }}
-                  className="px-6 py-3.5 rounded-xl bg-[#FFC107] hover:bg-[#ffb300] text-[#14253e] font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer font-heading"
+                  className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-[#FFC107] hover:bg-[#ffb300] text-[#14253e] font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer font-heading text-center flex-shrink-0"
                 >
                   Book ₹2250 Offer Now
                 </button>

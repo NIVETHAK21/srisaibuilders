@@ -130,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="hidden xl:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-[#1d3557] border border-slate-300 text-xs font-bold uppercase tracking-wider transition-all hover:scale-105 active:scale-95 whitespace-nowrap shrink-0"
             >
               <Phone className="w-3.5 h-3.5 text-[#E63946] flex-shrink-0" />
-              <span>Call Er. Mani</span>
+              <span>Call Er. Manikandan</span>
             </a>
 
             <button
