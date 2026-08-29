@@ -29,6 +29,8 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenQuoteModal }) =>
         return <Award className="w-6 h-6 text-[#1d3557]" />;
       case 'Compass':
         return <Compass className="w-6 h-6 text-[#E63946]" />;
+      case 'CheckCircle':
+        return <CheckCircle className="w-6 h-6 text-[#1d3557]" />;
       case 'Building':
       default:
         return <Building className="w-6 h-6 text-[#FFC107]" />;

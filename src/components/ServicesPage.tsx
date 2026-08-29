@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Home, 
-  Palette, 
+  Armchair, 
   Hammer, 
-  Paintbrush, 
+  PaintRoller, 
   Zap, 
-  Droplet, 
-  Layers, 
-  LayoutGrid, 
+  Droplets, 
+  Box, 
+  Building2, 
+  FlaskConical, 
+  Trees, 
+  Handshake, 
+  HardHat, 
   ArrowLeft, 
   ArrowRight, 
   CheckCircle2, 
@@ -15,18 +19,13 @@ import {
   Sparkles, 
   Phone, 
   MessageSquare, 
-  Building2, 
   Compass, 
-  HardHat, 
-  Award,
+  Layers,
   Clock,
   ChevronRight,
-  Calculator,
-  Download,
-  Share2
+  Calculator
 } from 'lucide-react';
 import { SERVICES_DATA, COMPANY_DETAILS, POSTER_HIGHLIGHTS } from '../data/companyData';
-import { ServiceDetail } from '../types';
 
 interface ServicesPageProps {
   initialServiceId?: string;
@@ -58,30 +57,33 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         return <Home className={className} />;
       case 'Hammer':
         return <Hammer className={className} />;
-      case 'Palette':
-        return <Palette className={className} />;
-      case 'Paintbrush':
-        return <Paintbrush className={className} />;
+      case 'Armchair':
+        return <Armchair className={className} />;
+      case 'PaintRoller':
+        return <PaintRoller className={className} />;
       case 'Zap':
         return <Zap className={className} />;
-      case 'Droplet':
-        return <Droplet className={className} />;
-      case 'Layers':
-        return <Layers className={className} />;
-      case 'LayoutGrid':
-        return <LayoutGrid className={className} />;
-      case 'Compass':
-        return <Compass className={className} />;
-      case 'HardHat':
-        return <HardHat className={className} />;
-      default:
+      case 'Droplets':
+        return <Droplets className={className} />;
+      case 'Box':
+        return <Box className={className} />;
+      case 'Building2':
         return <Building2 className={className} />;
+      case 'FlaskConical':
+        return <FlaskConical className={className} />;
+      case 'Trees':
+        return <Trees className={className} />;
+      case 'Handshake':
+        return <Handshake className={className} />;
+      case 'HardHat':
+      default:
+        return <HardHat className={className} />;
     }
   };
 
   const getQuoteCategory = (serviceId: string): 'construction' | 'interior' | 'renovation' => {
-    if (serviceId === 'house-construction') return 'construction';
-    if (serviceId === 'renovation-remodeling') return 'renovation';
+    if (serviceId === 'house-construction' || serviceId === 'civil-construction' || serviceId === 'structural-drawing' || serviceId === 'soil-test') return 'construction';
+    if (serviceId === 'renovation-remodeling' || serviceId === 'painting-works' || serviceId === 'plumbing-works' || serviceId === 'electrical-works') return 'renovation';
     return 'interior';
   };
 
@@ -138,7 +140,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-heading tracking-tight text-white leading-tight">
-              Our 8 Comprehensive <span className="text-[#FFC107]">Construction & Interior</span> Services
+              Our 12 Comprehensive <span className="text-[#FFC107]">Construction, Civil & Interior</span> Services
             </h1>
 
             <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl">
@@ -178,9 +180,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 {POSTER_HIGHLIGHTS.specialInclusions.map((item) => (
                   <div key={item.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/10 border border-white/10">
                     <div className="w-9 h-9 rounded-lg bg-[#E63946] text-white flex items-center justify-center flex-shrink-0 font-bold shadow">
-                      {item.id === '3d-plan' && <Compass className="w-5 h-5" />}
+                      {item.id === '3d-plan' && <Box className="w-5 h-5" />}
                       {item.id === 'structural-drawing' && <Layers className="w-5 h-5" />}
-                      {item.id === 'soil-test' && <HardHat className="w-5 h-5" />}
+                      {item.id === 'soil-test' && <FlaskConical className="w-5 h-5" />}
                     </div>
                     <div>
                       <div className="text-xs font-black text-[#FFC107]">{item.title}</div>
@@ -193,18 +195,18 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
           </div>
         </div>
 
-        {/* 8 Services Navigation Bar (Sticky Tabs) */}
+        {/* 12 Services Navigation Bar (Sticky Tabs) */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl sm:text-2xl font-black font-heading text-[#1d3557]">
               Select a Service to Inspect Specifications & Rate Cards
             </h2>
             <span className="text-xs font-mono font-bold text-slate-500 hidden sm:inline">
-              8 Available Services
+              12 Available Services
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
             {SERVICES_DATA.map((service, index) => {
               const isCurrent = service.id === selectedServiceId;
               return (
@@ -236,7 +238,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
                     isCurrent ? 'bg-[#FFC107] text-[#14253e]' : 'bg-slate-100 text-slate-500'
                   }`}>
-                    0{index + 1}
+                    {index + 1 < 10 ? `0${index + 1}` : index + 1}
                   </span>
                 </button>
               );
@@ -440,14 +442,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
         </div>
 
-        {/* All 8 Services Quick Grid Overview */}
+        {/* All 12 Services Quick Grid Overview */}
         <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#FFC107]">
               <span>Complete Civil & Interior Portfolio</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-black font-heading text-white">
-              All 8 Pranav Sai Builders Services at a Glance
+              All 12 Pranav Sai Builders Services at a Glance
             </h3>
             <p className="text-xs sm:text-sm text-slate-300">
               Click any service below to jump directly to its engineering rate breakdown.
@@ -477,7 +479,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       {getServiceIcon(service.icon, 'w-5 h-5')}
                     </div>
                     <span className="text-xs font-mono font-bold text-slate-400">
-                      0{idx + 1}
+                      {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                     </span>
                   </div>
                   <h4 className="text-base font-bold font-heading text-white group-hover:text-[#FFC107] transition-colors">

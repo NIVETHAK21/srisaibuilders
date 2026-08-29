@@ -1,21 +1,23 @@
 import React, { useRef, useState } from 'react';
 import { 
   Home, 
-  Palette, 
+  Armchair, 
   Hammer, 
-  Paintbrush, 
+  PaintRoller, 
   Zap, 
-  Droplet, 
-  Layers, 
-  LayoutGrid, 
+  Droplets, 
+  Box, 
+  Building2, 
+  FlaskConical, 
+  Trees, 
+  Handshake, 
+  HardHat, 
   ArrowRight, 
   Sparkles, 
   ChevronRight, 
-  Building2, 
-  Compass, 
-  HardHat, 
   CheckCircle2, 
-  ExternalLink 
+  ExternalLink,
+  Layers
 } from 'lucide-react';
 import { SERVICES_DATA, POSTER_HIGHLIGHTS } from '../data/companyData';
 
@@ -58,24 +60,27 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         return <Home className="w-5 h-5" />;
       case 'Hammer':
         return <Hammer className="w-5 h-5" />;
-      case 'Palette':
-        return <Palette className="w-5 h-5" />;
-      case 'Paintbrush':
-        return <Paintbrush className="w-5 h-5" />;
+      case 'Armchair':
+        return <Armchair className="w-5 h-5" />;
+      case 'PaintRoller':
+        return <PaintRoller className="w-5 h-5" />;
       case 'Zap':
         return <Zap className="w-5 h-5" />;
-      case 'Droplet':
-        return <Droplet className="w-5 h-5" />;
-      case 'Layers':
-        return <Layers className="w-5 h-5" />;
-      case 'LayoutGrid':
-        return <LayoutGrid className="w-5 h-5" />;
-      case 'Compass':
-        return <Compass className="w-5 h-5" />;
-      case 'HardHat':
-        return <HardHat className="w-5 h-5" />;
-      default:
+      case 'Droplets':
+        return <Droplets className="w-5 h-5" />;
+      case 'Box':
+        return <Box className="w-5 h-5" />;
+      case 'Building2':
         return <Building2 className="w-5 h-5" />;
+      case 'FlaskConical':
+        return <FlaskConical className="w-5 h-5" />;
+      case 'Trees':
+        return <Trees className="w-5 h-5" />;
+      case 'Handshake':
+        return <Handshake className="w-5 h-5" />;
+      case 'HardHat':
+      default:
+        return <HardHat className="w-5 h-5" />;
     }
   };
 
@@ -93,7 +98,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             <span>Complete Engineering & Civil Capabilities</span>
           </div>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-black font-heading text-[#1d3557] tracking-tight">
-            Our 8 Core Construction & Interior Services
+            Our 12 Core Construction & Civil Services
           </h2>
           <p className="text-slate-600 text-sm sm:text-base md:text-lg">
             {POSTER_HIGHLIGHTS.subHeading}
@@ -101,7 +106,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
           {/* Mobile Natural Hand Swipe Indicator */}
           <div className="flex md:hidden items-center justify-center gap-2 text-[11px] font-bold text-[#E63946] bg-red-50/90 py-1 px-3 rounded-full border border-red-200 w-fit mx-auto animate-pulse">
-            <span>👈 Swipe left & right to explore all 8 services 👉</span>
+            <span>👈 Swipe left & right to explore all 12 services 👉</span>
           </div>
         </div>
 
@@ -156,13 +161,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </div>
         </div>
 
-        {/* 8 Services (Grid on Desktop, Natural 1-Card Touch Swipe on Mobile) */}
+        {/* 12 Services (Grid on Desktop, Natural 1-Card Touch Swipe on Mobile) */}
         <div className="space-y-4">
           {/* Service Cards Container */}
           <div
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scroll-smooth touch-pan-x scrollbar-none pb-4 pt-1"
+            className="flex md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scroll-smooth touch-pan-x scrollbar-none pb-4 pt-1"
           >
             {SERVICES_DATA.map((service, index) => (
               <div
@@ -176,7 +181,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                       {getServiceIcon(service.icon)}
                     </div>
                     <span className="text-[11px] font-mono font-bold text-slate-400 group-hover:text-[#E63946] transition-colors">
-                      0{index + 1}
+                      {index + 1 < 10 ? `0${index + 1}` : index + 1}
                     </span>
                   </div>
 
@@ -200,7 +205,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </div>
 
           {/* Mobile Swipe Pagination Dots Indicator */}
-          <div className="flex md:hidden items-center justify-center gap-2 pt-1">
+          <div className="flex md:hidden items-center justify-center gap-1.5 pt-1 overflow-x-auto py-2">
             {SERVICES_DATA.map((_, i) => (
               <button
                 key={i}
@@ -208,7 +213,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 aria-label={`Go to service ${i + 1}`}
                 className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   activeServiceIndex === i
-                    ? 'w-6 bg-[#E63946]'
+                    ? 'w-5 bg-[#E63946]'
                     : 'w-2 bg-slate-300 hover:bg-slate-400'
                 }`}
               />
@@ -221,7 +226,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               onClick={() => onNavigateToServicesPage()}
               className="inline-flex items-center gap-3 px-6 sm:px-9 py-3.5 sm:py-4 rounded-xl bg-[#14253e] hover:bg-[#1d3557] text-[#FFC107] border-2 border-[#FFC107]/40 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform hover:scale-105 active:scale-95 cursor-pointer font-heading"
             >
-              <span>View All 8 Services & Rate Cards</span>
+              <span>View All 12 Services & Rate Cards</span>
               <ExternalLink className="w-4 h-4 text-[#FFC107]" />
             </button>
           </div>
